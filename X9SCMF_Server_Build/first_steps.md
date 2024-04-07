@@ -290,7 +290,7 @@ Before proceeding, ensure you have backed up any important data. Firmware update
   
 This section assumes a basic level of familiarity with terminal commands and the specific environment (Proxmox or TrueNAS). Always refer to the latest official documentation for `storcli` and `megacli` for any commands specific to your RAID controller model and firmware version.  
   
-### Sources used or needed for the downloads and readme files. The starred one are what I have installed.
+### Articles Referenced / links for the downloads and readme files. The starred one are what I have installed.
 
 MegaRAID Firmware:
 - "MegaRAID Firmware 20.13.1-0208." Broadcom. [Download Firmware](https://docs.broadcom.com/docs/12350294). Version: 20.13.1-0208, File Size: 2268 KB, Language: English.
