@@ -131,3 +131,110 @@ Not sure if the final home for RAID will be in the virtualized system or on the 
 
 
 
+### More was needed since should be installed on bsd and such too - The below is guess work. Ill refine later.
+### Organize Binaries:  
+First, create directories for `MegaCLI` and `storcli` under `/opt`. Then, place each version in its own subdirectory. This example assumes you have version `8.07.14` for `MegaCLI` and version `007.1613.0000` for `storcli`.  
+  
+```shell  
+# Create directories for MegaCLI  
+sudo mkdir -p /opt/megaraid/megacli/8.07.14  
+  
+# Place the MegaCLI binary in the versioned directory  
+# Assume you've transferred the binary as /path/to/MegaCli64  
+sudo cp /path/to/MegaCli64 /opt/megaraid/megacli/8.07.14/  
+  
+# Create directories for storcli  
+sudo mkdir -p /opt/megaraid/storcli/007.1613.0000  
+  
+# Place the storcli binary in the versioned directory  
+# Assume you've transferred the binary as /path/to/storcli64  
+sudo cp /path/to/storcli64 /opt/megaraid/storcli/007.1613.0000/  
+```  
+  
+### Create Symlinks:  
+Create symbolic links in `/usr/local/bin` for ease of use. This allows you to execute `MegaCli` and `storcli` from anywhere without specifying their full paths.  
+  
+```shell  
+# Create a symlink for MegaCLI  
+sudo ln -sfn /opt/megaraid/megacli/8.07.14/MegaCli64 /usr/local/bin/MegaCli  
+  
+# Create a symlink for storcli  
+sudo ln -sfn /opt/megaraid/storcli/007.1613.0000/storcli64 /usr/local/bin/storcli  
+```  
+  
+### Usage:  
+With the symlinks in place, you can simply use `MegaCli` or `storcli` commands directly:  
+  
+```shell  
+MegaCli -showSummary -aALL  
+storcli /c0 show  
+```  
+  
+### Future Updates:  
+When you download new versions of `MegaCLI` or `storcli`, simply place them in their respective versioned directory under `/opt`, and update the symlink to point to the new version. This method keeps your original files intact and makes it easy to revert to an older version if necessary.  
+
+
+### Additional Dependencies Installation:    
+Before setting up `MegaCLI` and `storcli`, you might need to install additional libraries on Ubuntu to ensure compatibility. This might not be necessary on TrueNAS, as FreeBSD systems and their derivatives have different dependency management.    
+    
+```shell    
+sudo apt install libncurses5    
+```    
+    
+This installs the `libncurses5` library, which is often required for terminal handling in command-line utilities.    
+    
+### Verifying Installation and Logs:    
+After installation, verifying the setup or checking the logs might be useful:    
+    
+```shell    
+# For MegaCLI    
+sudo megacli help    
+    
+# Checking storcli operation logs    
+cat storcli.log    
+```    
+    
+### Creating Symlinks:    
+Creating symlinks is crucial for easy access to the CLI tools without having to specify the full path each time.    
+    
+```shell    
+# For storcli    
+sudo ln -sfn /opt/MegaRAID/storcli/storcli64 /usr/local/bin/storcli    
+    
+# For MegaCLI    
+sudo ln -sfn /opt/MegaRAID/MegaCli/MegaCli64 /usr/local/bin/megacli    
+```    
+    
+### Basic RAID Management Commands:    
+Here are some common `storcli` commands that were used for RAID management:    
+    
+```shell    
+storcli /cx show all    
+storcli /cx show    
+storcli show    
+storcli -cx    
+storcli /cx    
+storcli help    
+storcli help | grep show    
+storcli /cx show bios    
+storcli show bios    
+storcli /c0 show bios    
+```    
+    
+### Installing MegaCLI on Ubuntu:    
+For Ubuntu, the installation of `MegaCLI` was done via `dpkg`:    
+    
+```shell    
+sudo apt install ./megacli_8.07.14-1_all.deb    
+```    
+    
+### Reviewing Firmware Information:    
+To check the RAID firmware version or related information, viewing the firmware file might be necessary:    
+    
+```shell    
+cat 20.13.1-0240_iMR_2008_SAS_FW_2.130.404-4659.txt    
+```    
+    
+### Firmware Installation Instructions (To Be Completed):    
+This section is intended for future instructions on updating the firmware for RAID controllers without relying on Windows-based utilities. Details will be added as the process is defined and tested.    
+
