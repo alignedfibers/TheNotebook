@@ -235,6 +235,67 @@ To check the RAID firmware version or related information, viewing the firmware 
 cat 20.13.1-0240_iMR_2008_SAS_FW_2.130.404-4659.txt    
 ```    
     
-### Firmware Installation Instructions (To Be Completed):    
+### Firmware Installation Instructions (Awaiting to be refined):    
 This section is intended for future instructions on updating the firmware for RAID controllers without relying on Windows-based utilities. Details will be added as the process is defined and tested.    
+### Firmware Installation Instructions:  
+  
+Before proceeding, ensure you have backed up any important data. Firmware updates can be disruptive and may lead to data loss if something goes wrong.  
+  
+1. **Download Firmware**:    
+   Download the latest firmware for MegaRAID SAS 9240-8i from the Broadcom official site. Use the links provided:  
+   - Firmware: [Latest MegaRAID Firmware 4.12 P2](https://docs.broadcom.com/docs/201310240zip)  
+   - ReadMe: [Firmware ReadMe](https://docs.broadcom.com/docs/201310240txt)  
+  
+2. **Review the ReadMe File**:    
+   It's crucial to review the ReadMe file to understand the firmware update process, compatibility, and any pre-requisites.  
+   ```shell  
+   cat 20.13.1-0240_iMR_2008_SAS_FW_2.130.404-4659.txt  
+   ```  
+  
+3. **Prepare for Firmware Update**:    
+   Place the firmware file (`imr_fw.rom`) in a location accessible by the system where you plan to run the update commands.  
+  
+4. **Update Firmware with StorCLI**:    
+   Use `storcli` to update the firmware on controller 0 (replace `/c0` with the appropriate controller identifier if different):  
+   ```shell  
+   storcli /c0 download file=./imr_fw.rom  
+   ```  
+   If this command doesn't work or if `storcli` isn't available, proceed with `megacli`.  
+  
+5. **Update Firmware with MegaCLI**:    
+   Alternatively, use `megacli` to flash the firmware:  
+   ```shell  
+   megacli -adpfwflash -f imr_fw.rom -a0  
+   ```  
+  
+6. **Post-Update Checks**:    
+   After updating, reboot the system. Then, verify the firmware update and check the controller's status:  
+   ```shell  
+   storcli /c0 show all  
+   megacli -AdpSetProp -EnableJBOD 1 -a0  
+   ```  
+  
+7. **Setting Drive to JBOD (if applicable)**:    
+   If you're using JBOD configurations, ensure to enable it post-firmware update:  
+   ```shell  
+   storcli /c0 show jbod all  
+   ```  
+  
+8. **Verify JBOD Configuration (Optional)**:    
+   To check JBOD configurations or set a drive as good (if needed), use:  
+   ```shell  
+   storcli /c0/e64/s2 set good  
+   storcli /c0 show jbod all  
+   ```  
+  
+This section assumes a basic level of familiarity with terminal commands and the specific environment (Proxmox or TrueNAS). Always refer to the latest official documentation for `storcli` and `megacli` for any commands specific to your RAID controller model and firmware version.  
+  
+### Sources used or needed for the downloads and readme files. The starred one are what I have installed.
 
+MegaRAID Firmware:
+- "MegaRAID Firmware 20.13.1-0208." Broadcom. [Download Firmware](https://docs.broadcom.com/docs/12350294). Version: 20.13.1-0208, File Size: 2268 KB, Language: English.
+- "Firmware Read Me." Broadcom. [Read Me](https://docs.broadcom.com/docs/12352558).
+
+**Latest MegaRAID Firmware ⭐⭐⭐:**
+- "Latest MegaRAID Firmware 4.12 P2." Broadcom. [Download Firmware](https://docs.broadcom.com/docs/201310240zip). Version: 20.13.1-0240, File Size: 2324 KB, Language: English.
+- "Firmware Read Me." Broadcom. [Read Me](https://docs.broadcom.com/docs/201310240txt).
