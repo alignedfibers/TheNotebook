@@ -3,8 +3,8 @@
 Name=Test GTK ShaSta
 GenericName=Go Get It
 Comment=Testing Debugs and window open locations, and monitor rects
-#TryExec=/media/shawnstark/scratchpad/eog_src/mypracticegtk/main
-Exec=env GTK_DEBUG=interactive /media/shawnstark/scratchpad/eog_src/mypracticegtk/main
+#TryExec=~/mypracticegtk/main
+Exec=env GTK_DEBUG=interactive ~/mypracticegtk/main
 #Kinda useful GTK_DEBUG=interactive
 # TRANSLATORS: Do NOT translate or transliterate this text!
 # This is an icon file name
