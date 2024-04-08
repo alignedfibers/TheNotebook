@@ -36,7 +36,7 @@ class MonitorController:
             output = subprocess.check_output(['ddcutil', 'detect'], timeout=10).decode('utf-8')
             for line in output.split('\n'):
                 if line.startswith('Display'):
-                    match = re.search(r'Display (\d+): (.+)', line)
+                    match = re.search(r'Display (\d+)', line)
                     if match:
                         monitor_id = int(match.group(1))
                         monitor_name = match.group(2)
