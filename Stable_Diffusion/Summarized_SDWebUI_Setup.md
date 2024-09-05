@@ -1,4 +1,3 @@
-```markdown
 # Breakdown of Your Setup and Edits
 
 ## 1. **Initial Setup for Python Virtual Environment**
