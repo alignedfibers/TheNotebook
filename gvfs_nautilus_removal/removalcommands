@@ -8,4 +8,5 @@
  apt purge gvfs-fuse*
  #apt purge libmm-glib0 check on this
  apt remove avahi-ui-utils vinagre remmina libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+ #avahi is not needed since resolve.d can handle multicast protocols.
 
