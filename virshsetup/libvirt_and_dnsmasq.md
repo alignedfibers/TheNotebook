@@ -67,7 +67,6 @@ Example output:
 
 ```plaintext
 eno1: connected to Profile 1
-        "SuperMicro 100GbE"
         ethernet (igb), 00:25:90:EE:FF:00, hw, mtu 1500
         inet4 10.10.220.1/24
         route4 10.10.220.0/24 metric 100
@@ -75,13 +74,13 @@ eno1: connected to Profile 1
 
 virbr0: connected to KVM bridge
         "virbr0"
-        bridge, 52:54:00:F4:D4:A0, sw, mtu 1500
+        bridge, 00:25:90:FF:AA:01, sw, mtu 1500
         inet4 10.10.122.1/24
         route4 10.10.122.0/24 metric 0
 
 vnet0: connected to virtual machine
         "vnet0"
-        tun, FE:54:00:52:EB:5D, sw, mtu 1500
+        tun, 00:25:90:AC:45:67, sw, mtu 1500
         master virbr0
         inet6 fe80::fc54:ff:fe52:eb5d/64
         route6 fe80::/64 metric 256
