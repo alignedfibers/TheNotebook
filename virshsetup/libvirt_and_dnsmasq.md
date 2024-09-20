@@ -38,7 +38,7 @@ Place this configuration into the file:
 </network>
 ```
 
-#### What’s Happening Here?
+#### What’s this setting up or doing?
 - **DHCP** is enabled, ensuring the VMs on the **10.10.122.x** subnet automatically receive IP addresses.
 - **DNS** is disabled on this network, meaning the virtual machines will rely on the host’s DNS settings. (/etc/resolv.conf)
 - This configuration ensures simplicity by letting **systemd-resolved** handle DNS for both host and guest machines.
