@@ -28,7 +28,7 @@ Place this configuration into the file:
     </nat>
   </forward>
   <bridge name='virbr0' stp='on' delay='0'/>
-  <mac address='00:25:90:EE:FF:00'/> <!-- Example SuperMicro 100GbE MAC -->
+  <mac address='00:25:90:FF:AA:01'/> <!-- Example SuperMicro 100GbE MAC -->
   <dns enable='no'/>
   <ip address='10.10.122.1' netmask='255.255.255.0'>
     <dhcp>
