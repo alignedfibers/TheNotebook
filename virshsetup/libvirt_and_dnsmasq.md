@@ -52,6 +52,48 @@ virsh net-dumpxml default
 - **Expected Result**: You should see the network’s IP range, MAC address, and DNS disabled.
 
 ---
+---
+
+### 1.1 **Understanding Network Interfaces**
+
+It’s useful to understand how the network interfaces are configured on the host to clarify how traffic flows between the external network and the virtual machines.
+
+#### Command: `nmcli`
+```bash
+nmcli
+```
+
+Example output:
+
+```plaintext
+eno1: connected to Profile 1
+        "SuperMicro 100GbE"
+        ethernet (igb), 00:25:90:EE:FF:00, hw, mtu 1500
+        inet4 10.10.220.1/24
+        route4 10.10.220.0/24 metric 100
+        route4 default via 10.10.220.1
+
+virbr0: connected to KVM bridge
+        "virbr0"
+        bridge, 52:54:00:F4:D4:A0, sw, mtu 1500
+        inet4 10.10.122.1/24
+        route4 10.10.122.0/24 metric 0
+
+vnet0: connected to virtual machine
+        "vnet0"
+        tun, FE:54:00:52:EB:5D, sw, mtu 1500
+        master virbr0
+        inet6 fe80::fc54:ff:fe52:eb5d/64
+        route6 fe80::/64 metric 256
+```
+
+In this setup:
+- **eno1** is the external interface connected to the physical network (e.g., the internet or LAN) with the IP `10.10.220.1/24`.
+- **virbr0** is the virtual bridge for the KVM network, handling internal VM traffic on the subnet `10.10.122.1/24`.
+- **vnet0** is the virtual network interface for a specific VM, connected to the `virbr0` bridge.
+
+---
+
 
 ### 2. **Setting Up systemd-resolved for DNS**
 
