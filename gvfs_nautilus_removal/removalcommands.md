@@ -1,4 +1,6 @@
  
+ 
+ ###This is like a trial and error command history, just historical
  ```bash
  #Nautilus will stop crashing, and you can still see everything that you have mounted
  #I believe USB drives may still automount, but if they do not, it is very easy.
@@ -7,13 +9,15 @@
  #I like the share options in the android applications that allow to choose an app at the time of upload or download or share.
  #I have some integration to do for some of my "cloud" media apps and stuff that removes a lot of work away from nautilus.
  #Also Grails, Jruby, Kafka, GO, and
- #This does not break anything
- apt purge notion
- apt purge gvfs-udisks2-volume-monitor
- apt purge gvfs-daemons
- apt purge gvfs-fuse*
+ 
+ sudo dpkg --force-depends --purge gvfs-fuse* avahi-ui-utils libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+ #apt purge notion
+ #apt purge gvfs-udisks2-volume-monitor
+ #apt purge gvfs-daemons
+ #apt purge gvfs-fuse*
  #apt purge libmm-glib0 check on this
- apt remove avahi-ui-utils vinagre remmina libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+ #apt remove avahi-ui-utils vinagre remmina libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+
  #avahi is not needed since resolve.d can handle multicast protocols and the added features it gives nautilus are not that useful.
  #Unfortunately after removing all of this it seems that when you click on the  "+ Other Locations" It shows all the correct drive listingings but seems that it is a bug that the mouse cursor still shows the clock like it is waiting for something which I am pretty sure is what is be removed here that is normally loading here, but at least it does not crash, and since I write .service files and load before and after conditions to ensure anything I place within fstab loads in the correct order if it is dependent on any services like Network, NBD, and DNS or dependent on another drive being loaded my files in /etc/fstab and /etc/systemd/system/ *.service excetera, wan might be more locations which I would like to know where else I might of put those other scripts based on the normal locations for them, not sure there is like .module or other type of file name which is the .unit or something like that an where those might be, I know on some of my services I don't have them setup in the best way possible but at least I can start them from systemctl. Anyways what is the trouble here is want to get rid of the clock on the mouse cursor, it seems to do nothing and is not an issue, more of an annoyance, at least it does not crash or have trouble with the part of nautilus that I have said to remove above, oh, and also since I did not write those correctly and they need to force remove without removing other things that supposedly have dependency on them, please rewrite that, nautilus has feature that use these, but is not dependent on them it is only soft dependent and listed in it's dependencies and indeed a simple fix which I am trying to come up with or learn how to do can fix the one little annoyance making this change causes, overall, this changes makes my Gnome Based Ubuntu 22.04 LTS Extremely More Stable, in combination with removing the System DNSMasq instance that clashes..
 ```
