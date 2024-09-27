@@ -1,6 +1,6 @@
  
  
- ###This is like a trial and error command history, just historical
+ ### This is like a trial and error command history, just historical
  ```bash
  #Nautilus will stop crashing, and you can still see everything that you have mounted
  #I believe USB drives may still automount, but if they do not, it is very easy.
