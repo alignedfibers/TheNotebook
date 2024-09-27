@@ -37,10 +37,10 @@ I kind of mis-spoke in my original report when talking about **Avahi**. The **av
 In addition to Avahi, I removed some parts of **gvfs**, which is GNOME’s virtual file system layer. It’s what enables Nautilus to handle various file systems and network protocols (like SMB, SFTP, or Google Drive) without needing you to mount them manually. It’s pretty handy for some, but I’m all about keeping things lean and manually mounting my drives when I need them.
 
 By removing **gvfs**, I lose some of the seamless mounting and integration Nautilus offers. Here’s what this means for me:
-- **Network Drives**: I’ll no longer be able to click on network locations in Nautilus and have them automatically mount. (In fact they will not even list which lowers the time taken when navigating to the tab that searches for these items and stops a lot of unstable crashing issues in nautilus)
+- **Network Drives**: I’ll no longer be able to click on network locations in Nautilus and have them automatically mount. (In fact they will not even list which lowers the time taken when navigating to the tab that searches for these items and stops a lot of unstable crashing issues in nautilus, all drives already mounted either via fstab, systemd .unit files or somehow via .service files will show quickly instead and not lookups are done)
 - **Cloud Services**: If you were using Nautilus to access cloud storage services (e.g., Google Drive), that functionality goes away unless re-enabled with other tools.
 
-As for **fuse**, it's tied to how Nautilus allows user-space applications to handle mounting (without needing root access). So by removing **gvfs-fuse**, I’ll lose that ease-of-use feature, meaning I’ll have to manage mount points via `fstab` or manually through `mount`. That’s fine for me, but for others who prefer the simplicity of automatic mounts and easy access in Nautilus, this could feel like a downgrade.
+As for **fuse**, it's tied to how Nautilus allows user-space applications to handle mounting (without needing root access). So by removing **gvfs-fuse**, I’ll lose that ease-of-use feature, meaning I’ll have to manage mount points via `fstab` or manually through `mount`. That’s fine for me, but for others who prefer the simplicity of automatic mounts and easy access in Nautilus, this could feel cumbersome, I would say it is okay for a laptop that reboot often and does not run anything important you need access to on the network as it does cause nautilus to freeze and crash and has seemingly caused full crashes and though not proven, issues with not being able to type into the lock screen to login have gone away, though this change likely improved that, maybe other precipitating factors or root causes were involved and until the branches for gnome, nautilus get the bugs out of the sytem, and what I mean by that is they don't merge them back in because of bad merges.
 
 ---
 
@@ -48,11 +48,20 @@ As for **fuse**, it's tied to how Nautilus allows user-space applications to han
 
 Here’s the exact list of packages I removed, ensuring we only target what’s necessary without breaking any critical dependencies:
 
+
 ```bash
-sudo apt purge notion
-sudo apt purge gvfs-udisks2-volume-monitor
-sudo apt purge gvfs-daemons gvfs-fuse*
-sudo apt remove avahi-ui-utils vinagre remmina libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+#The force-dependends tells apt ignore the Gnome-Core dependency - It soes no harm
+sudo dpkg --force-depends --purge gvfs-fuse* avahi-ui-utils libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+
+```
+
+```bash
+#Chat GPT recommends, but I have not yet tried or verifiedm usually these gsettings it thinks exist, do not at all exist, ill update later.
+#Since my mouse icon still acts like it is searching (shows the clock) but obviously functions perfectly, and nautilus is not waiting, these commands might correct that, but I have my doubts.
+gsettings set org.gnome.nautilus.preferences enable-interactive-search false
+gsettings reset org.gnome.desktop.interface cursor-theme
+nautilus -q
+rm -rf ~/.cache/nautilus ~/.thumbnails
 ```
 
 I double-checked to make sure nothing crucial was accidentally pulled along with these. The goal here was to strip down Nautilus’s reliance on these auto-mounting and network discovery features without impacting my manual control.
