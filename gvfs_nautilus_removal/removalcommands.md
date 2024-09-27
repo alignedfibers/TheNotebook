@@ -37,7 +37,7 @@ I kind of mis-spoke in my original report when talking about **Avahi**. The **av
 In addition to Avahi, I removed some parts of **gvfs**, which is GNOME’s virtual file system layer. It’s what enables Nautilus to handle various file systems and network protocols (like SMB, SFTP, or Google Drive) without needing you to mount them manually. It’s pretty handy for some, but I’m all about keeping things lean and manually mounting my drives when I need them.
 
 By removing **gvfs**, I lose some of the seamless mounting and integration Nautilus offers. Here’s what this means for me:
-- **Network Drives**: I’ll no longer be able to click on network locations in Nautilus and have them automatically mount.
+- **Network Drives**: I’ll no longer be able to click on network locations in Nautilus and have them automatically mount. (In fact they will not even list which lowers the time taken when navigating to the tab that searches for these items and stops a lot of unstable crashing issues in nautilus)
 - **Cloud Services**: If you were using Nautilus to access cloud storage services (e.g., Google Drive), that functionality goes away unless re-enabled with other tools.
 
 As for **fuse**, it's tied to how Nautilus allows user-space applications to handle mounting (without needing root access). So by removing **gvfs-fuse**, I’ll lose that ease-of-use feature, meaning I’ll have to manage mount points via `fstab` or manually through `mount`. That’s fine for me, but for others who prefer the simplicity of automatic mounts and easy access in Nautilus, this could feel like a downgrade.
