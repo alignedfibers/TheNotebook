@@ -54,15 +54,19 @@ Here’s the exact list of packages I removed, ensuring we only target what’s 
 
 
 ```bash
-#The force-dependends tells apt ignore the Gnome-Core dependency - It soes no harm
+#The force-dependends tells apt ignore the Gnome-Core dependency - It does no harm, so I leap with unwavering arms -lol.
 sudo dpkg --force-depends --purge gvfs-fuse* avahi-ui-utils libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
+sudo apt remove nautilus-wipe
+sudo apt remove nautilus-script-collection-svn
+apt remove nautilus-image-converter
+apt remove nautilus-sendto
+apt remove nautilus-dropbox
 
 ```
 
 ```bash
 #Chat GPT recommends, but I have not yet tried or verifiedm usually these gsettings it thinks exist, do not at all exist, ill update later.
 #Since my mouse icon still acts like it is searching (shows the clock) but obviously functions perfectly, and nautilus is not waiting, these commands might correct that, but I have my doubts.
-gsettings set org.gnome.nautilus.preferences enable-interactive-search false
 gsettings reset org.gnome.desktop.interface cursor-theme
 nautilus -q
 rm -rf ~/.cache/nautilus ~/.thumbnails
