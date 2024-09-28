@@ -107,6 +107,20 @@ libavahi-core7/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,
 libavahi-glib1/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,automatic]
 python3-avahi/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed]
 
+fuse3/jammy,now 3.10.5-1build1 amd64 [installed,automatic]
+fuseiso/jammy,now 20070708-3.2build1 amd64 [installed,automatic]
+libfuse2/jammy,now 2.9.9-5ubuntu3 amd64 [installed,automatic]
+libfuse3-3/jammy,now 3.10.5-1build1 amd64 [installed,automatic]
 
+#also udisks as a simple way to mount is very useful, and windows users would feel kinda at home. It lacks fuse, and the plug-n-play for usb, but it can mount for you. You do have to place your creds in the box to complete though. Please know that many applications have a focus issue with the creds box and you cannot complete the creds, it was fixed at one point on ubuntu 22.04 and I do not recall at what version or package, then they updated and I think had accidentally merged an old bug back in, and then fixed again, and then somehow at one point has found a middle ground, meaning it is fixed, but it is optional if the new UI components are using the corrected version or the broken version, guessing somehow old version still needed, this is observation only as it is not happening everywhere, its just whatever gtk app calls the authentication screen. I am pretty sure I can fully replace this with the PAM, Kuberos UI interface, though I am afraid of locking myself out and messing with it. Also not sure if there is a gtk version.
+
+gir1.2-udisks-2.0/jammy,now 2.9.4-1ubuntu2 amd64 [installed,automatic]
+libudisks2-0/jammy,now 2.9.4-1ubuntu2 amd64 [installed,automatic]
+udisks2-bcache/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
+udisks2-btrfs/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
+udisks2-doc/jammy,jammy,now 2.9.4-1ubuntu2 all [installed]
+udisks2-lvm2/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
+udisks2-zram/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
+udisks2/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
 
 ```
