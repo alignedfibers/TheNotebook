@@ -58,15 +58,15 @@ Here’s the exact list of packages I removed, ensuring we only target what’s 
 sudo dpkg --force-depends --purge gvfs-fuse* avahi-ui-utils libavahi-ui-gtk3-dev libavahi-ui-gtk3-0
 sudo apt remove nautilus-wipe
 sudo apt remove nautilus-script-collection-svn
-apt remove nautilus-image-converter
-apt remove nautilus-sendto
-apt remove nautilus-dropbox
+sudo apt remove nautilus-image-converter
+sudo apt remove nautilus-sendto
+sudo apt remove nautilus-dropbox
 
 ```
 
 ```bash
 #Chat GPT recommends, but I have not yet tried or verifiedm usually these gsettings it thinks exist, do not at all exist, ill update later.
-#Since my mouse icon still acts like it is searching (shows the clock) but obviously functions perfectly, and nautilus is not waiting, these commands might correct that, but I have my doubts.
+#Since my mouse icon still acts like it is searching (shows the clock) but obviously functions perfectly, and nautilus is not waiting, these commands might correct that, but I have my doubts. (Indeed I have tried and to no luck, nautilus doesnt have any scripts to edit, ill need a modified .so to fix the mouse wait icon)
 gsettings reset org.gnome.desktop.interface cursor-theme
 nautilus -q
 rm -rf ~/.cache/nautilus ~/.thumbnails
