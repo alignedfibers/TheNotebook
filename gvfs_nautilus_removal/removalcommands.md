@@ -84,3 +84,29 @@ If you’re following my setup, just be aware that pulling **Avahi**, **gvfs**, 
 
 ---
 
+### Keep in mind these important packages below stay installed
+
+```bash
+#If you uninstall these, your on your own.
+#I do not recall or know if I tried. We only stripped out UI parts.
+#Since they are libs I can still write my own code using them.
+> apt list --installed | grep gvfs
+gvfs-common/jammy-updates,jammy-updates,now 1.48.2-0ubuntu1 all [installed]
+gvfs-daemons/jammy-updates,now 1.48.2-0ubuntu1 amd64 [installed]
+gvfs-libs/jammy-updates,now 1.48.2-0ubuntu1 amd64 [installed]
+gvfs/jammy-updates,now 1.48.2-0ubuntu1 amd64 [installed]
+
+> apt list --installed | grep avahi
+libavahi-client3/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,automatic]
+libavahi-client3/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 i386 [installed,automatic]
+libavahi-common-data/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,automatic]
+libavahi-common-data/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 i386 [installed,automatic]
+libavahi-common3/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,automatic]
+libavahi-common3/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 i386 [installed,automatic]
+libavahi-core7/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,auto-removable]
+libavahi-glib1/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed,automatic]
+python3-avahi/jammy-security,jammy-updates,now 0.8-5ubuntu5.2 amd64 [installed]
+
+
+
+```
