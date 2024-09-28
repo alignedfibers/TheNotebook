@@ -84,4 +84,3 @@ If you’re following my setup, just be aware that pulling **Avahi**, **gvfs**, 
 
 ---
 
-This version keeps the rest of your flow intact while fixing that piece you called out. Let me know if it fits your vision now!
