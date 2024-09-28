@@ -124,3 +124,23 @@ udisks2-zram/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
 udisks2/jammy,now 2.9.4-1ubuntu2 amd64 [installed]
 
 ```
+
+Here’s the revision with the first-person perspective for the "Try Containers for IoT" section:
+
+---
+
+### Avahi-UI Removal Impact:
+Removing **avahi-ui** should not affect much in your daily use. At most, you’ll lose an icon or some graphical feature in Nautilus, but those are likely broken or limited in functionality anyway. The core **avahi libraries** and **client** remain intact, meaning they can still be used directly in code, by other applications more aligned with smart device management (than Nautilus or GNOME), or via the command line.
+
+### Containers and Isolation Options:
+This is a great opportunity to explore more powerful container and isolation solutions for managing IoT devices. **uml**, which I love due to its history as the virtualization platform for Linode before they switched to Xen Hypervisor, comes first. Next is **chroot**, a simpler but highly effective way to isolate processes by changing the root directory. After that, consider **lxc**, **kubernetes**, and **docker**, which provide robust container environments for isolating tasks and managing IoT or home automation.
+
+If you’re looking for simpler options, **flatpak** or **snap packages** virtualize file systems but offer less control than uml or chroot. However, they are still useful for isolating certain apps.
+
+### Avahi Core Still Works:
+Even though the UI portion of avahi is removed, the **avahi libraries** and **client tools** are still available for direct code use, more appropriate applications, or command-line implementations. My system retains core networking functionality without relying on Nautilus, and more specialized apps will continue to work as expected.
+
+### Trying Containers for IoT:
+I think I might try running apps like **home assistant** in containers. **uml**, **chroot**, **lxc**, **kubernetes**, or **docker** provide the flexibility and control I need to manage IoT devices without cluttering my desktop environment. Containers isolate tasks and offer a more reliable way to handle device management than integrating IoT into Nautilus. While **flatpak** or **snap** are useful for certain isolated apps, they don’t give me the same level of control as full container solutions.
+
+---
