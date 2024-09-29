@@ -33,6 +33,7 @@ Place this configuration into the file:
   <ip address='10.10.122.1' netmask='255.255.255.0'>
     <dhcp>
       <range start='10.10.122.2' end='10.10.122.254'/>
+      <dhcp-option name='dns-server' value='10.10.122.1'/>
     </dhcp>
   </ip>
 </network>
