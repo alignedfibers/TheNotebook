@@ -13,7 +13,11 @@ Start by setting up the network for your VMs. The network is configured for NAT,
 #### File: `/etc/libvirt/qemu/networks/default.xml`
 To edit the network configuration:
 ```bash
+virsh net-list --all
+virsh net-dumpxml default
+virsh net-uuid default
 virsh net-edit default
+virsh net-dumpxml default
 ```
 
 Place this configuration into the file:
