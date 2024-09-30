@@ -12,7 +12,7 @@ Start by setting up the network for NAT, where **dnsmasq** handles only DHCP, an
 
 Ensure we fully setup our own network configuration:
 ```diff
-++Additional steps to create the virtbr (bridge inteface) is left out as it is normally created by default, you can note the bridge name multiple ways, note it from the current default network config using virsh net-edit default
+++Additional steps to create the virtbr (bridge interface) is left out as it is normally created by default, you can note the bridge name multiple ways, note it from the current default network config using virsh net-edit default
 ```
 ```bash
 #We will complete steps below using shell commands
@@ -59,7 +59,7 @@ echo 00:26:9E:$(openssl rand -hex 3 | sed 's/\(..\)/\1:/g; s/:$//')
 #### What’s this setting up or doing?
 - **DHCP** is enabled, ensuring the VMs on the **10.10.122.x** subnet automatically receive IP addresses.
 - **DNS** is disabled on this network, meaning the virtual machines will rely on the host’s DNS settings. (/etc/resolv.conf)
-- **Host has a stub resolver** - In this case the host already has dns over tls, dnssec, and local stub resolvers already setup, one of those stub-resolvers is listening for dns requests on 10.10.122.1, and the system instand of dnsmasq disabled. The network config we are creating reflects that a stub-resolver is listening locally, if it is not, you should be able to specify you router ip and NAT should work.
+- **Host has a stub resolver** - In this case the host already has dns over tls, dnssec, and local stub resolvers already setup, one of those stub-resolvers is listening for dns requests on 10.10.122.1, and the system instance of dnsmasq is disabled. The network config we are creating reflects that a stub-resolver is listening locally, if it is not, you should be able to specify you router ip and NAT should work.
 
 #### Apply the configuration:
 ```bash
