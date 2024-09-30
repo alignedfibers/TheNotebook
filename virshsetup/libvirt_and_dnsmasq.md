@@ -27,7 +27,7 @@ virsh net-undefine default
 systemctl stop libvirtd
 rm /etc/libvirt/qemu/networks/*
 mkdir /etc/libvirt/qemu/networksby_vendorme
-/etc/libvirt/qemu/networksby_vendorme/quejustme.xml
+/etc/libvirt/qemu/networksby_vendorme/itsjustme.xml
 uuidgen
 echo 00:26:9E:$(openssl rand -hex 3 | sed 's/\(..\)/\1:/g; s/:$//')
 ```
@@ -35,10 +35,10 @@ echo 00:26:9E:$(openssl rand -hex 3 | sed 's/\(..\)/\1:/g; s/:$//')
 ```xml
 <!-- Really bogus troubles if you do not specify extra namespaces beyond the libvirt built in schema, virsh will just magically remove the <dnsmasq:options> block and if you add a domain element below the network element to try to use <qemu:commandline> block the namespace will need to be directly in the block.. Recommend reading up on that if you have any issues with changes to the xml file magically not saving. -->
 ```
-#### Add and save ssid, mac, ip, bridge into your network file  - quejustme.xml
+#### Add and save ssid, mac, ip, bridge into your network file  - itsjustme.xml
 ```xml
 <network xmlns:dnsmasq="http://libvirt.org/schemas/network/dnsmasq/1.0">
-  <name>quejustme</name>
+  <name>itsjustme</name>
   <uuid>00000000-0000-0000-0000-000000000000</uuid>
   <forward mode='nat'/>
   <bridge name='virbr0' stp='on' delay='0'/>
@@ -63,11 +63,11 @@ echo 00:26:9E:$(openssl rand -hex 3 | sed 's/\(..\)/\1:/g; s/:$//')
 
 #### Apply the configuration:
 ```bash
-virsh net-define /etc/libvirt/qemu/networksby_vendorme/quejustme.xml
-virsh net-autostart quejustme
-virsh net-start quejustme
+virsh net-define /etc/libvirt/qemu/networksby_vendorme/itsjustme.xml
+virsh net-autostart itsjustme
+virsh net-start itsjustme
 virsh net-dumpxml default
-#virsh net-edit quejustme should be able to save and update normal now.If the dnsmasq namespace is properly added at the top of the file some directives or blocks will be ignored and dropped. In the process of doing this, your networks are now saved and defined under a directory with specific meaning for you. Typically you only have one, but this looks forward to possibly adding more. If the net-dumpxml default does not match, check everything was correctly entered and the extra namespace is added.
+#virsh net-edit itsjustme should be able to save and update normal now.If the dnsmasq namespace is properly added at the top of the file some directives or blocks will be ignored and dropped. In the process of doing this, your networks are now saved and defined under a directory with specific meaning for you. Typically you only have one, but this looks forward to possibly adding more. If the net-dumpxml default does not match, check everything was correctly entered and the extra namespace is added.
 ```
 - **Expected Result**: You should see the network’s IP range, MAC address, and DNS disabled.
 
