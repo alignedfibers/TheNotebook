@@ -4,55 +4,70 @@ This guide walks you through setting up **systemd-resolved** for DNS management 
 
 ---
 ```diff
-++Please do end any currently running kvm machines first 
+++Please do end any currently running kvm machines first
 ```
 ### 1. **Configure libvirt Network for NAT and DHCP**
 
-Start by setting up the network for your VMs. The network is configured for NAT, where **dnsmasq** handles only DHCP, and DNS requests are passed to the host.
+Start by setting up the network for NAT, where **dnsmasq** handles only DHCP, and DNS requests are passed to the host.
 
-#### File: `/etc/libvirt/qemu/networks/default.xml`
-To edit the network configuration:
+Ensure we fully setup our own network configuration:
+```diff
+++Additional steps to create the virtbr (bridge inteface) is left out as it is normally created by default, you can note the bridge name multiple ways, note it from the current default network config using virsh net-edit default
+```
 ```bash
-virsh net-list --all
-virsh net-dumpxml default
-virsh net-uuid default
-virsh net-edit default
-virsh net-dumpxml default
+#We will complete steps below using shell commands
+#Undefine the existing network, likely default
+#Stop libvirt just to be thorough
+#Backup if needed then delete the junk network files
+#Make a directory for your own network files
+#add a new xml that will be the configuration for your network
+#create a uuid and keep note of it
+#create a random mac address and keep note of it
+virsh net-undefine default
+systemctl stop libvirtd
+rm /etc/libvirt/qemu/networks/*
+mkdir /etc/libvirt/qemu/networksby_vendorme
+/etc/libvirt/qemu/networksby_vendorme/quejustme.xml
+uuidgen
+echo 00:26:9E:$(openssl rand -hex 3 | sed 's/\(..\)/\1:/g; s/:$//')
 ```
 
-Place this configuration into the file:
-
 ```xml
-<network connections='1'>
-  <name>default</name>
-  <uuid>1111-1111-1111-1111</uuid>
-  <forward mode='nat'>
-    <nat>
-      <port start='1024' end='65535'/>
-    </nat>
-  </forward>
+<!-- Really bogus troubles if you do not specify extra namespaces beyond the libvirt built in schema, virsh will just magically remove the <dnsmasq:options> block and if you add a domain element below the network element to try to use <qemu:commandline> block the namespace will need to be directly in the block.. Recommend reading up on that if you have any issues with changes to the xml file magically not saving. -->
+```
+#### Add and save ssid, mac, ip, bridge into your network file  - quejustme.xml
+```xml
+<network xmlns:dnsmasq="http://libvirt.org/schemas/network/dnsmasq/1.0">
+  <name>quejustme</name>
+  <uuid>00000000-0000-0000-0000-000000000000</uuid>
+  <forward mode='nat'/>
   <bridge name='virbr0' stp='on' delay='0'/>
-  <mac address='00:25:90:FF:AA:01'/> <!-- Example SuperMicro 100GbE MAC -->
+  <mac address='00:25:90:FF:AA:01'/>
   <dns enable='no'/>
   <ip address='10.10.122.1' netmask='255.255.255.0'>
     <dhcp>
       <range start='10.10.122.2' end='10.10.122.254'/>
-      <dhcp-option name='dns-server' value='10.10.122.1'/>
     </dhcp>
   </ip>
+<dnsmasq:options>
+  <dnsmasq:option value="dhcp-option=6,10.10.122.1"/>
+</dnsmasq:options>
 </network>
+
 ```
 
 #### What’s this setting up or doing?
 - **DHCP** is enabled, ensuring the VMs on the **10.10.122.x** subnet automatically receive IP addresses.
 - **DNS** is disabled on this network, meaning the virtual machines will rely on the host’s DNS settings. (/etc/resolv.conf)
-- This configuration ensures simplicity by letting **systemd-resolved** handle DNS for both host and guest machines.
+- **Host has a stub resolver** - In this case the host already has dns over tls, dnssec, and local stub resolvers already setup, one of those stub-resolvers is listening for dns requests on 10.10.122.1, and the system instand of dnsmasq disabled. The network config we are creating reflects that a stub-resolver is listening locally, if it is not, you should be able to specify you router ip and NAT should work.
 
-#### Check Configuration:
+#### Apply the configuration:
 ```bash
-virsh net-destroy default
-virsh net-start default
+virsh net-define /etc/libvirt/qemu/networksby_vendorme/quejustme.xml
+virsh net-autostart quejustme
+virsh net-start quejustme
 virsh net-dumpxml default
+#virsh net-edit quejustme should be able to save and update normal now.If the dnsmasq namespace is properly added at the top of the file some directives or blocks will be ignored and dropped. In the process of doing this, your networks are now saved and defined under a directory with specific meaning for you. Typically you only have one, but this looks forward to possibly adding more. If the net-dumpxml default does not match, check everything was correctly entered and the extra namespace is added.
 ```
 - **Expected Result**: You should see the network’s IP range, MAC address, and DNS disabled.
 
@@ -100,6 +115,7 @@ In this setup:
 
 
 ### 2. **Setting Up systemd-resolved for DNS**
+#### This is usually done at step numeral 0, but it was late.
 
 Ubuntu uses **systemd-resolved** to manage DNS by default, but we’ll ensure that DNS queries are forwarded securely using **DNS-over-TLS** and **DNSSEC**.
 
