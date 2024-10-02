@@ -28,8 +28,13 @@ https://uvermont.mm.fcix.net/ubuntu-releases/24.04.1/ubuntu-24.04.1-desktop-amd6
 18. Verify the XML is correct: Click Overview, XML and compare to xml block below.
 19. Fail first boot and set boot order: Start installation, fail, modify boot order.
 20. Scratch head on install media: Confirm not missing, select media again. Apply.
-21. Boot: Press the play button to boot, then click view and console. Login screen :)
-22. Black Screen Workaround: No login screen or black screen. Start ssh server module.
+21. Boot: Press the play button to boot, then click view and console. Setup screen :)
+22. Select Install Options: Default disk drive wipe whole thing, no LVM, RAID, or ZFS.
+23. Select Time Zone: You can point and click here, so go ahead and select, move ahead.
+24. Create Username: Set your username and some password, use easypass it will allow.
+25. Remove CD and Reboot: Once complete, shut off vm, click view>details, remove cd.
+26. Booting into graphical login: Might work but will likely get black screen.
+2X. Black Screen Workaround: No login screen or black screen. Start ssh server module.
 ```
 
 ```xml
