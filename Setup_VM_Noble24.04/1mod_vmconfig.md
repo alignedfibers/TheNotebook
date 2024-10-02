@@ -33,7 +33,7 @@ https://uvermont.mm.fcix.net/ubuntu-releases/24.04.1/ubuntu-24.04.1-desktop-amd6
 23. Select Time Zone: You can point and click here, so go ahead and select, move ahead.
 24. Create Username: Set your username and some password, use easypass it will allow.
 25. Remove CD and Reboot: Once complete, shut off vm, click view>details, remove cd.
-26. Booting into graphical login: Might work but will likely get black screen.
+26. Booting into graphical login: Boot it. Might work but will likely get black screen.
 2X. Black Screen Workaround: No login screen or black screen. Start ssh server module.
 ```
 
