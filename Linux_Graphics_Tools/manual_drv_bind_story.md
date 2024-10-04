@@ -1,3 +1,6 @@
+```diff
+++ ChatGPT left out, you need to stop all processes locking the driver from proper unbinding or you will have issues. Make sure to pause the containers, stop GPUParted,then make your change, restart parted, and make sure any of the user space container, vms are able to properly load back any processes and memory they thing they have on a new slate from the gpu, okay I am dreaming of this being possible for now GPUParted does not yet exist for me, but still before binding new drivers, you need to somehow free the gpu from all processes. This means you really have to monky with GDM for the computer only nvidia card if it is not your primary, again I think it is manageable from the 61-gdm.rules under /usr/lib/sysd/ I think??
+```
 Creating a script similar to driverctl, a tool for managing device driver bindings in Linux, involves  
 interacting with the sysfs filesystem to bind and unbind drivers for specific devices. The original  
 driverctl tool is more comprehensive and includes features for persistent driver overrides. However,  
