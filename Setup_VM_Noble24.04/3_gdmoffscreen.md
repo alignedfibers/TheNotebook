@@ -1,7 +1,7 @@
 
 
 
-#### nano /etc/gdm3/custom.conf
+#### from ssh session nano /etc/gdm3/custom.conf
 ```ini
 # GDM configuration storage
 #
