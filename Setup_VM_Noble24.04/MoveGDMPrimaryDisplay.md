@@ -13,7 +13,7 @@
 
 # Enabling automatic login
 AutomaticLoginEnable = true
-AutomaticLogin = shawnstark
+AutomaticLogin = exampleuser
 
 # Enabling timed login
 #  TimedLoginEnable = true
