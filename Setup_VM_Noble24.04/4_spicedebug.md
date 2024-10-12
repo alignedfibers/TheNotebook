@@ -3,9 +3,11 @@
 
 ***(this issue does not happen in ChromeOS Flex or Windows just Ubuntu)***
 
+***(Genuinely not fixable in this OS without doing usb redirect or passthrough usb device meaning you have to have more than one mouse connected, annoying, it is not a simple fix. Chris Titus uses the network mouse.. but yeah that opens up a possible security flaw as it is in plain text over network, not sure if that will even work in my use case.)***
+
 ---
 
-#### TODO Automatically attachingg the spice-server debug qemu hook script using custom element within the libvirt qemu domain element and external DTD. Its code.
+#### TODO Automatically attaching the spice-server debug qemu hook script using custom element within the libvirt qemu domain element and external DTD. Its code.
 ---
 
 #### TODO Redirect debug from vdagent to log on host via serial device under the current vm.
