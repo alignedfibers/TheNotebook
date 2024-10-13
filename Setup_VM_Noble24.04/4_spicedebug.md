@@ -14,7 +14,7 @@
 ---
 #### TODO Create a folder tree for my custom continue.sh, helpers, and logs to live.
 ---
-#### TODO Create a qemu hook that handles the vm start event and creates a custom continue.sh per vm.
+#### TODO Create a qemu hook that handles the vm start event and creates a custom continue.sh per vm. Takes a moment.
 ```bash
 #!/bin/bash
 #This is a start. Generating continue.sh requries a custom DTD
