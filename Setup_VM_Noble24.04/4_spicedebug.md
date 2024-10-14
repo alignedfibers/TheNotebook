@@ -17,7 +17,7 @@
 #### TODO Create a qemu hook that handles the vm start event and creates a custom continue.sh per vm. Takes a moment.
 ```bash
 #!/bin/bash
-#This is a start. Generating continue.sh requries a custom DTD
+#This is a start. Generating continue.sh requries a custom XSD
 VM_NAME="$1"
 EVENT="$2"
 #SPICE_PORT="5900"  # Default SPICE port, adjust as needed
