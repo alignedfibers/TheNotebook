@@ -55,4 +55,4 @@ apt install -y radeon-profile
    sudo ./setup-radeon-profile.sh
    ```
 
-***Visit the website for the PPA to ensure the correct keys are used - https://launchpad.net/~radeon-profile/+archive/ubuntu/stable .***
+***Visit the website for the PPA to ensure the correct keys are used - https://launchpad.net/~radeon-profile/+archive/ubuntu/stable ...***
