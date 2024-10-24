@@ -32,6 +32,9 @@ gpg --no-default-keyring --keyring /etc/apt/keyrings/radeon-profile.gpg --keyser
 echo "deb [signed-by=/etc/apt/keyrings/radeon-profile.gpg] https://ppa.launchpadcontent.net/radeon-profile/stable/ubuntu jammy main" > /etc/apt/sources.list.d/archive_uri-https_ppa_launchpadcontent_net_radeon-profile_stable_ubuntu-noble.list
 echo "# deb-src https://ppa.launchpadcontent.net/radeon-profile/stable/ubuntu jammy main" >> /etc/apt/sources.list.d/archive_uri-https_ppa_launchpadcontent_net_radeon-profile_stable_ubuntu-noble.list
 
+# Uninstall dirmngr
+dpkg --purge --force-depends dirmngr
+
 # Update package lists
 apt update
 
