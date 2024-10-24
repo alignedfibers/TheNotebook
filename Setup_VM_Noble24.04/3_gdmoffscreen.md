@@ -1,6 +1,6 @@
+## This may need to be redone after ever change display in gnome
 
-
-
+***Specifically case having a EDID fob plugged for fake display.***
 #### from ssh session nano /etc/gdm3/custom.conf
 ```ini
 # GDM configuration storage
