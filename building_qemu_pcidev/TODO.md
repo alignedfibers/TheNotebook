@@ -1,5 +1,6 @@
 ## TODO
 *[ ] Qemu PCI Device 1*  
+- [] extract much watching someond do it https://www.youtube.com/watch?v=lbW8-Y8-4bQ
 - [] review qemu docs/devel/qom.rst 
 - [] review qemu hw/misc/ivshmem.c 
 - [] review https://wiki.osdev.org/PCI
