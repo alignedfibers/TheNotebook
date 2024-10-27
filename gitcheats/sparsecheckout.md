@@ -25,8 +25,6 @@ git pull origin master
 #Not using the next commands actually but keeping them for clarity, 
 #It seems if you checkout before setting sparse-checkout correctly, commands below will not help fully.
 #git checkout origin/master
-#This next command for some reason only works after a pull or checkout
-#git read-tree -mu HEAD
 #Create the sparse-checkout file just for funzies
 #touch .git/info/sparse-checkout
 #Next command manually sets the folders to pull, you can repeat it over using >> to add additional lines.
