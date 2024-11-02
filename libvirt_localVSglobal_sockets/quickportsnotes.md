@@ -1,4 +1,4 @@
-##This may not be accurate, but good to have, want to still use virt-manager if not connected to any wired or wireless connections.
+## This may not be accurate, but good to have, want to still use virt-manager if not connected to any wired or wireless connections.
 
 Here's an expanded table including relevant configuration file locations for each daemon or service:
 
