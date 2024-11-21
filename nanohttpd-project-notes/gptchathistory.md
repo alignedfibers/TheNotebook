@@ -1,4 +1,4 @@
-## What is difference of API and Implementation in Gradle build files and how to use it?
+## NanoHTTPD Upgrade to Java 11+ and Gradle 7+ & Adding Android Gradle Plugin & More
 *[Notes on making build compatible with modern gradle and fix deprecations] 
 - ***If you’re using Gradle 6.0 or later, some of these configurations have been deprecated and replaced by the implementation/api and testImplementation/testApi configurations.***  
     ### Summary of Replacements:
