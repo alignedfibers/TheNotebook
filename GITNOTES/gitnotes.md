@@ -64,6 +64,24 @@ git switch gsource-android10-rel
 git push origin gsource-android10-rel
 git remote -v
 git branch -a
+
+### Need to be able to reorigin easy
+#Create a new repository without intializing it first
+#Make sure the upstream origin is currently set and pulled
+#If intended to use the upstream remote add upstream or remote add external excetera
+#So once that prereq done, then go ahead and push to the new repo, and start making your changes
+#Basically I keep a dirty master I am working on, and then will create another and merge what I want.
+#I try to commite on a full feature or full change bases isolated to a specific.
+#Committing with intent of minimal change only for the one need which should easy merge to upstream later if cherry-pick
+git status
+git remote -v
+git branch -a
+git pull master
+#git remote remove origin
+git remote set url origin https://github.com/alignedfibers/antenna-pod-plus.git
+git push -u origin <branch-name>
+#git branch --set-upstream-to=origin/develop develop
+
 ```
 
 
