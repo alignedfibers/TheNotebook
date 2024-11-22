@@ -23,7 +23,7 @@
 				</configuration>
 			</plugin>
         ```
-- ***Pain in freaking but all the places to set Gradle and JAVA Version***  
+- ***Pain in freaking butt all the places to set Gradle and JAVA Version***  
     - `gradle/wrapper/gradle-wrapper.properties` ***(distributionUrl=https\://services.gradle.org/distributions/gradle-7.0.2-bin.zip)***
     - `export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64` ***(Required in the terminal, you will likely want to make this in bashrc)***
     - `File>Settings>Build Execution Deployment>Build Tools>Gradle` 
