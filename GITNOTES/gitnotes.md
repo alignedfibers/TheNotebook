@@ -79,8 +79,16 @@ git branch -a
 git pull master
 #git remote remove origin
 git remote set url origin https://github.com/alignedfibers/antenna-pod-plus.git
-git push -u origin <branch-name>
+git push -u origin develop/master/external/main/upstream
 #git branch --set-upstream-to=origin/develop develop
+
+
+
+### Have not committed anything yet, need to easily go back to state of your last commit?
+git status
+git restore .
+git clean -fd
+git status
 
 ```
 
