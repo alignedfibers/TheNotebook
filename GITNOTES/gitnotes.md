@@ -78,8 +78,8 @@ git remote -v
 git branch -a
 git pull master
 #git remote remove origin
-git remote set url origin https://github.com/alignedfibers/antenna-pod-plus.git
-git push -u origin develop/master/external/main/upstream
+git remote set-url origin https://github.com/alignedfibers/antenna-pod-plus.git
+git push -u origin develop  # (This could also be master/external/main/upstream)
 #git branch --set-upstream-to=origin/develop develop
 
 
