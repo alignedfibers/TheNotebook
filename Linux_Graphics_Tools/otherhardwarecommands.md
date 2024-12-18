@@ -2,6 +2,8 @@
 lshw
 lsusb
 lspci
+# -k shows more information including the current loaded driver for the device
+lspci -k | grep -EA3 'VGA|3D'
 for d in $(find /sys/kernel/iommu_groups/ -type l | sort -n -k5 -t/); do      n=${d#*/iommu_groups/*}; n=${n%%/*};     printf 'IOMMU Group %s ' "$n";     lspci -nns "${d##*/}"; done;
 cat 99-usb-cdc_ncm-disabled.rules 
 #gedit 99-usb-cdc_ncm-disabled.rules 
