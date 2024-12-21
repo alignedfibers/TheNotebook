@@ -1,6 +1,6 @@
 #!/bin/bash
 ```bash
-#messed up a branch and want to just put it on a dirty branch and start over?
+#messed up a branch and want to just name it as a dirty branch and start over?
 git status
 git add . 
 git commit -m "Pre move to dirtybranch"
@@ -15,10 +15,12 @@ git commit --allow-empty -m "Initialize clean master branch"
 git push --force origin master
 
 #Okay now lets fully merge current upstream with all comments
+#Once the upstream is set, you can cherry-pick from what changes you made in dirty, and from external or other outsource
 git fetch upstream
 git checkout master
 git reset --hard upstream/master
 git push --force origin master
+
 
 #We have something from dirtybranch we still need to add.
 #Since I could see it in github when looking at commit history on dirty easy to see the commit id
