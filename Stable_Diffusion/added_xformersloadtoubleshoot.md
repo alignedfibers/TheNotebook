@@ -1,4 +1,4 @@
-## Added print statements to repositories/stable-diffusion-stability-ai/diffusionmodules/model.py and repositories/generative-models/sgm/modules/attention.py -- this research was conclusive that the nv driver 470.239.06 plus cuda 11.3 does not support the features for tensor cores, and althoug xformers was properly compiled against pytorch 1.12.1+cu113 xFormers 0.0.22+a24a6e3.d20230821 uing the lates C compiler version it supports, it seems to load and has features listed the xformers can use with the K80 per the xformer.info when I run it, but seems the loading and unloading of it gets stuck somewhere giving errors, and if I correct the loading issue, then stable diffusion ai give error that tensor core support does not exist, but in conclusion xformer optimizations still can be used, but the area in the code where the optimizations are enable will need a switch statement detecting support and only enable the needed optimizations, since xformers only optimizes in a later pass it seemed since it fails midway through generating a single image after it is mostly done. It is in theory the older card will still be supported, and the value of the K80s will go back up once I am done, in fact I have them working and can make them work but not with all the new features, and since the k80 has sufficient vram they still seem to be competitive with other cards in the AI image generation area though it cannot use new memory management features the latest cards can, and does not have tensor cores. Thus, I could patch the main code base or do a pull to conditionally handle that GPU accordingly, but require a special flag you need to set so it never tries and just uses the normal unless your trying to do "older card / driver / pytorch / cuda" compatibility after all I removed the steps to force load the xformers, and restored the logical portion of the code to the way it was before, but left the debugging in it as shown below, in order to force it to load, you have to unload it before you load it in model.py by setting it to none under sys.modules[]
+## Added print statements to repositories/stable-diffusion-stability-ai/diffusionmodules/model.py and repositories/generative-models/sgm/modules/attention.py -- this research was conclusive that the nv driver 470.239.06 plus cuda 11.3 does not support the features for tensor cores, and although xformers was properly compiled against pytorch 1.12.1+cu113 xFormers 0.0.22+a24a6e3.d20230821 uing the latest C compiler version it supports, it seems to load and has features listed the xformers can use with the K80 per the xformer.info when I run it, but seems the loading and unloading of it gets stuck somewhere giving errors, and if I correct the loading issue, then stable diffusion ai give error that tensor core support does not exist, but in conclusion xformer optimizations still can be used, but the area in the code where the optimizations are enable will need a switch statement detecting support and only enable the needed optimizations, since xformers only optimizes in a later pass it seemed since it fails midway through generating a single image after it is mostly done. It is in theory the older card will still be supported, and the value of the K80s will go back up once I am done, in fact I have them working and can make them work but not with all the new features, and since the k80 has sufficient vram they still seem to be competitive with other cards in the AI image generation area though it cannot use new memory management features the latest cards can, and does not have tensor cores. Thus, I could patch the main code base or do a pull to conditionally handle that GPU accordingly, but require a special flag you need to set so it never tries and just uses the normal unless your trying to do "older card / driver / pytorch / cuda" compatibility after all I removed the steps to force load the xformers, and restored the logical portion of the code to the way it was before, but left the debugging in it as shown below, in order to force it to load, you have to unload it before you load it in model.py by setting it to none under sys.modules[]
 
 ***Reason is because it wraps a try/exception around the import inside of generative-models and inside of stability-ai both, and has the same error print message and was hard to determine where it was errored from.***
 
@@ -138,4 +138,42 @@ except Exception as e:
     traceback.print_exc()
     print(f"No module 'xformers'. Processing without it... {line_info()}")
     XFORMERS_IS_AVAILBLE = False
+```
+***xformers.info output**
+```bash
+shawnstark@visual-headsup-jammy:~$ python3 -m xformers.info
+Blocksparse is not available: the current GPU does not expose Tensor cores
+xFormers 0.0.22+a24a6e3.d20230821
+memory_efficient_attention.cutlassF:               available
+memory_efficient_attention.cutlassB:               available
+memory_efficient_attention.decoderF:               available
+memory_efficient_attention.flshattF@v2.0.8:        available
+memory_efficient_attention.flshattB@v2.0.8:        available
+memory_efficient_attention.smallkF:                available
+memory_efficient_attention.smallkB:                available
+memory_efficient_attention.tritonflashattF:        unavailable
+memory_efficient_attention.tritonflashattB:        unavailable
+indexing.scaled_index_addF:                        available
+indexing.scaled_index_addB:                        available
+indexing.index_select:                             available
+swiglu.dual_gemm_silu:                             available
+swiglu.gemm_fused_operand_sum:                     available
+swiglu.fused.p.cpp:                                available
+is_triton_available:                               True
+is_functorch_available:                            False
+pytorch.version:                                   1.12.1+cu113
+pytorch.cuda:                                      available
+gpu.compute_capability:                            3.7
+gpu.name:                                          Tesla K80
+build.info:                                        available
+build.cuda_version:                                1104
+build.python_version:                              3.10.12
+build.torch_version:                               1.12.1+cu113
+build.env.TORCH_CUDA_ARCH_LIST:                    None
+build.env.XFORMERS_BUILD_TYPE:                     None
+build.env.XFORMERS_ENABLE_DEBUG_ASSERTIONS:        None
+build.env.NVCC_FLAGS:                              None
+build.env.XFORMERS_PACKAGE_FROM:                   None
+build.nvcc_version:                                11.4.100
+source.privacy:                                    open source
 ```
