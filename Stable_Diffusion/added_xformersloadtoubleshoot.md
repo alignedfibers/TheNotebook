@@ -1,0 +1,141 @@
+## Added print statements to repositories/stable-diffusion-stability-ai/diffusionmodules/model.py and repositories/generative-models/sgm/modules/attention.py -- this research was conclusive that the nv driver 470.239.06 plus cuda 11.3 does not support the features for tensor cores, and althoug xformers was properly compiled against pytorch 1.12.1+cu113 xFormers 0.0.22+a24a6e3.d20230821 uing the lates C compiler version it supports, it seems to load and has features listed the xformers can use with the K80 per the xformer.info when I run it, but seems the loading and unloading of it gets stuck somewhere giving errors, and if I correct the loading issue, then stable diffusion ai give error that tensor core support does not exist, but in conclusion xformer optimizations still can be used, but the area in the code where the optimizations are enable will need a switch statement detecting support and only enable the needed optimizations, since xformers only optimizes in a later pass it seemed since it fails midway through generating a single image after it is mostly done. It is in theory the older card will still be supported, and the value of the K80s will go back up once I am done, in fact I have them working and can make them work but not with all the new features, and since the k80 has sufficient vram they still seem to be competitive with other cards in the AI image generation area though it cannot use new memory management features the latest cards can, and does not have tensor cores. Thus, I could patch the main code base or do a pull to conditionally handle that GPU accordingly, but require a special flag you need to set so it never tries and just uses the normal unless your trying to do "older card / driver / pytorch / cuda" compatibility after all I removed the steps to force load the xformers, and restored the logical portion of the code to the way it was before, but left the debugging in it as shown below, in order to force it to load, you have to unload it before you load it in model.py by setting it to none under sys.modules[]
+
+***Reason is because it wraps a try/exception around the import inside of generative-models and inside of stability-ai both, and has the same error print message and was hard to determine where it was errored from.***
+
+***attention.py lines 1-86 after my changes
+```python
+import math
+from inspect import isfunction
+from typing import Any, Optional
+
+import sys
+import traceback
+import importlib.util
+
+import torch
+import torch.nn.functional as F
+from einops import rearrange, repeat
+from packaging import version
+from torch import nn
+
+print("========== After All to force Xformers to load with CUDA 11.3 it errors while it is running then =============")
+print("Re-enabled the import check on it, and some how it tests and stops it loading, but not sure exactly where")
+print("Runtime Error gets this with the K80 and CUDA 11.3 - Blocksparse is not available: the current GPU does not expose Tensor cores████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 30/30")
+
+if version.parse(torch.__version__) >= version.parse("2.0.0"):
+    SDP_IS_AVAILABLE = True
+    from torch.backends.cuda import SDPBackend, sdp_kernel
+
+    BACKEND_MAP = {
+        SDPBackend.MATH: {
+            "enable_math": True,
+            "enable_flash": False,
+            "enable_mem_efficient": False,
+        },
+        SDPBackend.FLASH_ATTENTION: {
+            "enable_math": False,
+            "enable_flash": True,
+            "enable_mem_efficient": False,
+        },
+        SDPBackend.EFFICIENT_ATTENTION: {
+            "enable_math": False,
+            "enable_flash": False,
+            "enable_mem_efficient": True,
+        },
+        None: {"enable_math": True, "enable_flash": True, "enable_mem_efficient": True},
+    }
+else:
+    from contextlib import nullcontext
+
+    SDP_IS_AVAILABLE = False
+    sdp_kernel = nullcontext
+    BACKEND_MAP = {}
+    print(
+        f"No SDP backend available, likely because you are running in pytorch versions < 2.0. In fact, "
+        f"you are using PyTorch {torch.__version__}. You might want to consider upgrading."
+    )
+
+def line_info():
+    # `f_back` to go one frame up, so we're getting the caller's line number
+    # `__file__` is the filename of this script
+    return f"(File: {__file__}, Line: {sys._getframe(1).f_lineno})"
+
+print(f"==== Before the try wrapping the import xformers ==== {line_info()}")
+try:
+    print(f"==== Inside the try block for xformers import ==== {line_info()}")
+    import xformers
+    import xformers.ops
+    import xformers.info
+    XFORMERS_IS_AVAILABLE = True
+except Exception as e:
+    print(f"==== Exception occurred while importing xformers ==== {line_info()}")
+    #print(f"Exception: {e}")
+    traceback.print_exc()
+    print(f"No module 'xformers'. Processing without it... {line_info()}")
+    XFORMERS_IS_AVAILABLE = False
+
+print(f"==== After the try/except wrapping the import xformers ==== {line_info()}")
+spec = importlib.util.find_spec("xformers")
+if spec is not None:
+    print(f"==== xformers is found at:", spec.origin ,f"==== {line_info()}")
+else:
+    print(f"==== xformers not found by importlib. ==== {line_info()}")
+
+if "xformers" in sys.modules:
+    print(f"==== xformers is in sys.modules: sys.modules['xformers'] = {sys.modules['xformers']} ==== {line_info()}")
+    #print(f"sys.modules['xformers'] = {sys.modules['xformers']} ==== {line_info()}")
+else:
+    print(f"==== xformers is NOT in sys.modules at all. ==== {line_info()}")
+
+xformers.info.print_info()
+
+from .diffusionmodules.util import checkpoint
+```
+
+
+***model.py lines 1-43 after my changes.
+```python
+# pytorch_diffusion + derived encoder decoder
+import math
+
+import sys
+import traceback
+import importlib.util
+
+import torch
+import torch.nn as nn
+import numpy as np
+from einops import rearrange
+from typing import Optional, Any
+
+from ldm.modules.attention import MemoryEfficientCrossAttention
+
+def line_info():
+    # `f_back` to go one frame up, so we're getting the caller's line number
+    # `__file__` is the filename of this script
+    return f"(File: {__file__}, Line: {sys._getframe(1).f_lineno})"
+
+spec = importlib.util.find_spec("xformers")
+if spec is not None:
+    print(f"xformers is found at:", spec.origin ,f"==== {line_info()}")
+else:
+    print(f"xformers not found by importlib. ==== {line_info()}")
+
+if "xformers" in sys.modules:
+    print(f"xformers is in sys.modules:")
+    print(f"sys.modules['xformers'] = {sys.modules['xformers']} ==== {line_info()}")
+else:
+    print(f"xformers is NOT in sys.modules at all. ==== {line_info()}")
+
+print(f"==== Before the try wrapping the import xformers ==== {line_info()}")
+try:
+    print(f"==== Inside the try block for xformers import ==== {line_info()}")
+    import xformers
+    import xformers.ops
+    XFORMERS_IS_AVAILBLE = True
+except Exception as e:
+    print(f"==== Exception occurred while importing xformers ==== {line_info()}")
+    traceback.print_exc()
+    print(f"No module 'xformers'. Processing without it... {line_info()}")
+    XFORMERS_IS_AVAILBLE = False
+```
