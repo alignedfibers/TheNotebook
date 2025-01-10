@@ -9,7 +9,7 @@
 ## Keep in mind IPMI will work up to once the graphics load in OS if you completely disable MATROX.
 ## PS, you do not have to disable your nvidia card, or card otherwise filtered out in this file but you do need at least:
 ## -Installed Primary AMD Card /supported card that you wish to display your graphic through and have wayland option available.
-## -Actually has second/onboard-mb gpu wish NOT to use in OS, and gets caught in 61-gdm disabling your wayland option.
+## -Actually have a second/onboard-mb gpu wish NOT to use in OS, and gets caught in 61-gdm disabling your wayland option.
 ## -Understand and read this script and have identified the methods and agree that updating the script is hard.
 ## -Disable any of the "bad" gpus from being primary in GTK/Gnome. Or disable your compute cards from Gnome.
 ## -Enabled your AMD or other supported card not filtered in 61-gdm to be used by Gnome/GTK as the only primary.
@@ -25,8 +25,8 @@
 ## -Realize that just using wayland stops this X-thread issue from happening.
 ## -Per my recommendation, research driverctl, and us it to bind your vfio or other driver as the correct way to do it.
 ## Do this if you want wayland but it was not letting you before.
-## Do this if you have older than 24.04 ubuntu inside qemu vm and want to use a passthrough.
-## Realize the new 24.04 ubuntu 61-gdm leaves wayland enabled on the virtio gpu.
+## Do this inside the vm if you have older than 24.04 ubuntu inside qemu vm and want to use a passthrough.
+## Realize the new 24.04 ubuntu 61-gdm leaves wayland enabled on the virtio gpu in vm without doing this.
 ## Realize I have not fully tested 24.04, and have yet to know if it disables wayland option with certain GPUs present
 ```bash
 sudo mv gdm_61-gdm.rules gdm_61-gdm.rules.old
