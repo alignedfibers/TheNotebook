@@ -1,11 +1,11 @@
 ## Freaking do this if and only if you want to be able to use your nvidia card for compute only.
 ## The idea here is you are disabling GTK and Gnome from using your nvidia card completely.
-## The other idea here is you are just removing the script that verifies if GPUs support wayland
-## Matrox and some NVIDIA GPU cause problems in wayland so it 61-gdm disables it. 
+## The other idea here is you are just removing the script that verifies if GPUs support wayland.
+## Matrox and some NVIDIA GPU cause problems in wayland so 61-gdm disables it. 
 ## What needs to be done? Make a backup of the file to .old. Delete all content from original and save.
-## This also needs to be done on Ubuntu 22.04 if you want to passthrough gpu to work, and wayland to work.
-## You must black list matrox drivers or other that the scripts reference from or in this file catch as bad gpu.
-## You may want to use UDEV rules to compeletely disable some onboard graphic on some supermicro boards if use for home.
+## This also needs to be done on Ubuntu 22.04 inside the VM if you want passthrough gpu to work, and wayland to work.
+## You must black list matrox drivers or other drivers for the bad gpus that should not be loaded and disable via udev.
+## You may want to use UDEV rules to compeletely disable some onboard graphics on some supermicro boards if use for home.
 ## Keep in mind IPMI will work up to once the graphics load in OS if you completely disable MATROX.
 ## PS, you do not have to disable your nvidia card, or card otherwise filtered out in this file but you do need at least:
 ## -Installed Primary AMD Card /supported card that you wish to display your graphic through and have wayland option available.
