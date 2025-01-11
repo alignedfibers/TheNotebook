@@ -15,7 +15,7 @@ pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=
 # (this can take dozens of minutes)
 ```
 
-***Takes a little while, it is exciting and scary, downloads a lot of stuff, runs pretty quick on 40 threads micht take a wil on something else, then once complete you should be able to run the below to see your xformers information (My memory is faint, not sure if version of C received any complaints.)***
+***Takes a little while, it is exciting and scary, downloads a lot of stuff, runs pretty quick on 40 threads, then once complete you should be able to run the below to see your xformers information (My memory is faint, not sure if version of C received any complaints.)***
 ```bash
 python3 -m xformers.info
 Blocksparse is not available: the current GPU does not expose Tensor cores
