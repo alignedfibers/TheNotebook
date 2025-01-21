@@ -1,18 +1,15 @@
-Web API on top of a service and abstract library wrapping ddcutil.  
-#Boiler Plate Python – Called into via a local secure cloud function exposure –  
-#behind nginx – 6digit auth with known-device and proximity check attempt, and alerts.   
-#Monitor mic cannot logmein. Period.. No No No.   
-#Alerts are web, multicast local, email, possible txt msg or messenger. Access is lan only.   
-#Web connection is norm over https established and held both ways but has a noisy stream    
-#which is a packet of data over https every so many ms, packets are always 16bit obj.   
-#Thinking the noise ends when the session ends, so at least could listen on network for use.   
-#It is an API so any communications are one of what every combinations are possible.  
-#Ports for the simple web service to flip values on my remote/clicker app, also throttled.  
-#This is small bits and very little data stuff only. Multicast, he swapped his video,  
-#certaintly will have an on off for the whole network knowing if my video swapped though.  
-#It is a cheap kvm without the mouse and the keyboard.  
-#basically a double private device handshake then an auth code for session.  
-#It is a changing handshake, security ideas are overdoing it.
+
+# Ran into some funky issues where my monitors were acting like the menus on them were being run remotely
+# I updated some things and that went away, but I wondered, is there a way I could detect if my monitors change menu options
+# The closest utility I could find to help in this is ddcutil, so I generated some code it was crap.
+# So I clarified I wanted threads and wanted to create a listener to poll the ddcutil utility.
+# Code generation pointed me to the correct libraries but still was not working, but I cleaned it up.
+# I think at least some of the code below works if you call it, but has an issue I have not cleaned up yet.
+# The point of this is so I can add an api around ddcutil to make it easy to change menu options, or detect features available.
+# Not all features of ddcutil are available depending on the version of display port or hdmi in use the monitor
+# Purpose used to detect if for some reason the monitors changed via a different display connector on the back by listening.
+# Purpose used also to change the videa source on monitors that do not come with a remote control by connect a linux computer to a display port.
+# Since I can use this api once complete with key mapping of a keyboard or remote on the linux computer for source input change im happy.
 
 ```python
 """
