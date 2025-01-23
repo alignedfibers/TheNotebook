@@ -1,0 +1,6 @@
+PC bitmap
+PNG image
+Zip archive
+.png
+.bmp
+res/

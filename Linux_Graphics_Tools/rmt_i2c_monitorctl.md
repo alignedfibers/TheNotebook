@@ -6,7 +6,7 @@
 # Code generation pointed me to the correct libraries but still was not working, but I cleaned it up.
 # I think at least some of the code below works if you call it, but has an issue I have not cleaned up yet.
 # The point of this is so I can add an api around ddcutil to make it easy to change menu options, or detect features available.
-# Not all features of ddcutil are available depending on the version of display port or hdmi in use the monitor
+# Not all features of ddcutil are available depending on the version of display port or hdmi in use on the monitor
 # Purpose used to detect if for some reason the monitors changed via a different display connector on the back by listening.
 # Purpose used also to change the videa source on monitors that do not come with a remote control by connect a linux computer to a display port.
 # Since I can use this api once complete with key mapping of a keyboard or remote on the linux computer for source input change im happy.
