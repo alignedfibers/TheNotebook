@@ -1,5 +1,3 @@
-I’ll keep this concise and clean for reference, centered on tooling, payload terminology, and chainloader relationships.
-Then I’ll place Automotium in a quote block as requested — contained and separate.
 
 ---
 
