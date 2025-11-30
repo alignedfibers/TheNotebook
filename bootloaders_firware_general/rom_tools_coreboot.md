@@ -6,20 +6,25 @@
 #### **System-repo tools** (commonly available in Linux distros)
 
 These install normally via apt / pacman / emerge / rpm etc.
-`dmidecode` — system hardware descriptors (BIOS, memory, etc.)
-`biosdecode` — lower-level BIOS-related data from SMBIOS/DMI
-`flashrom` — read/write SPI flash chips, internal/external programmers
-`efibootmgr` — manage EFI boot entries
-`nvramtool` — CMOS/RTC configs (useful for coreboot-compatible boards)
+
+```ini
+dmidecode — system hardware descriptors (BIOS, memory, etc.)
+biosdecode — lower-level BIOS-related data from SMBIOS/DMI
+flashrom — read/write SPI flash chips, internal/external programmers
+efibootmgr — manage EFI boot entries
+nvramtool — CMOS/RTC configs (useful for coreboot-compatible boards)
+```
 
 #### **Coreboot-linked utilities** (usually built from coreboot tree / or cloned separately)
 
-`ifdtool` — Intel descriptor region manipulation (Intel-specific)
-`me_cleaner` — modify or neuter Intel ME region
-`cbfstool` — edit coreboot filesystem (CBFS) containing payloads and blobs
-`util/spi_*` — coreboot’s supporting SPI tools for various flash programmers
-`cpu_microcode_utility` — inserting microcode into CBFS
-`bios_extract` — extract BIOS images from vendor capsules (works on some HP/Dell/Lenovo formats)
+```ini
+ifdtool — Intel descriptor region manipulation (Intel-specific)
+me_cleaner — modify or neuter Intel ME region
+cbfstool — edit coreboot filesystem (CBFS) containing payloads and blobs
+util/spi_* — coreboot’s supporting SPI tools for various flash programmers
+cpu_microcode_utility — inserting microcode into CBFS
+bios_extract — extract BIOS images from vendor capsules (works on some HP/Dell/Lenovo formats)
+```
 
 #### **AMD-specific utilities**
 
